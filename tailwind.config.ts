@@ -1,0 +1,81 @@
+import type { Config } from 'tailwindcss';
+
+const config: Config = {
+  darkMode: 'class',
+  content: [
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+  ],
+  safelist: [
+    'bg-primary/5',
+    'bg-primary/10',
+    'bg-primary/20',
+    'bg-primary/30',
+    'text-primary',
+    'text-success',
+    'text-warning',
+    'text-error',
+    'border-primary/10',
+    'border-primary/15',
+    'border-primary/20',
+    'border-primary/25',
+    'border-primary/30',
+    'text-foreground/50',
+    'text-foreground/70',
+    'text-foreground/80',
+    'text-foreground/90',
+    'hover:bg-primary/5',
+    'hover:bg-primary/10',
+    'hover:opacity-90',
+    'divide-primary/10',
+    'bg-success/20',
+    'bg-error/20',
+    'bg-warning/20',
+    'bg-foreground/20',
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: 'var(--primary)',
+        secondary: 'var(--secondary)',
+        success: 'var(--success)',
+        warning: 'var(--warning)',
+        error: 'var(--error)',
+        'light-bg': 'var(--light-bg)',
+        'light-card': 'var(--light-card)',
+        'light-nav': 'var(--light-nav)',
+        'light-input': 'var(--light-input)',
+        'dark-bg': 'var(--dark-bg)',
+        'dark-card': 'var(--dark-card)',
+        'dark-nav': 'var(--dark-nav)',
+        'dark-input': 'var(--dark-input)',
+        foreground: {
+          DEFAULT: 'var(--dark-text-primary)',
+        },
+        'light-text-primary': 'var(--light-text-primary)',
+        'light-text-secondary': 'var(--light-text-secondary)',
+        'light-text-tertiary': 'var(--light-text-tertiary)',
+      },
+      borderRadius: {
+        'none': '0px',
+        'sm': '4px',
+        DEFAULT: '8px',
+        'md': '12px',
+        'lg': '16px',
+        'xl': '20px',
+        '2xl': '24px',
+        '3xl': '32px',
+        'full': '9999px',
+        'button': '0.375rem'
+      },
+      boxShadow: {
+        'card': '0 4px 8px rgba(0, 0, 0, 0.1)',
+        'card-dark': '0 4px 8px rgba(0, 0, 0, 0.25)',
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config; 

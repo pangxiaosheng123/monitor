@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../data/coolmonitor.db"
+}
+
+model User {
+  id        String    @id @default(cuid())
+  username  String    @unique
+  name      String?
+  email     String?
+  password  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  isAdmin   Boolean   @default(false)
+  monitors  Monitor[]
+  sessions  Session[]
+  loginRecords LoginRecord[]
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model SystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NotificationChannel {
+  id                   String                @id @default(cuid())
+  name                 String
+  type                 String
+  enabled              Boolean               @default(true)
+  config               Json
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  monitorNotifications MonitorNotification[]
+}
+
+model Monitor {
+  id                   String                @id @default(cuid())
+  name                 String
+  type                 String
+  config               Json
+  active               Boolean               @default(true)
+  interval             Int                   @default(60)
+  retries              Int                   @default(0)
+  retryInterval        Int                   @default(60)
+  resendInterval       Int                   @default(0)
+  upsideDown           Boolean               @default(false)
+  description          String?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  createdById          String?
+  lastCheckAt          DateTime?
+  nextCheckAt          DateTime?
+  lastStatus           Int?
+  createdBy            User?                 @relation(fields: [createdById], references: [id])
+  notificationBindings MonitorNotification[]
+  statusHistory        MonitorStatus[]
+}
+
+model MonitorNotification {
+  id                    String              @id @default(cuid())
+  monitorId             String
+  notificationChannelId String
+  enabled               Boolean             @default(true)
+  createdAt             DateTime            @default(now())
+  updatedAt             DateTime            @updatedAt
+  notificationChannel   NotificationChannel @relation(fields: [notificationChannelId], references: [id], onDelete: Cascade)
+  monitor               Monitor             @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+
+  @@unique([monitorId, notificationChannelId])
+  @@index([monitorId])
+  @@index([notificationChannelId])
+}
+
+model MonitorStatus {
+  id        String   @id @default(cuid())
+  monitorId String
+  status    Int
+  message   String?
+  ping      Int?
+  timestamp DateTime @default(now())
+  monitor   Monitor  @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+
+  @@index([monitorId, timestamp])
+}
+
+model LoginRecord {
+  id        String    @id @default(cuid())
+  userId    String
+  ipAddress String?
+  userAgent String?
+  success   Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}

@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  coolmonitor:
+    build:
+      context: .
+      dockerfile: Dockerfile-ARM
+    restart: always
+    ports:
+      - "3333:3333"
+    volumes:
+      # 挂载本地目录，用于持久化SQLite数据库
+      # 首次启动时会自动初始化数据库
+      - ~/coolmonitor_data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3333
+      - NODE_OPTIONS=--max-old-space-size=2048
+      # 如果需要设置代理，取消以下注释
+      # - PROXY_ENABLED=true
+      # - PROXY_SERVER=your-proxy-server
+      # - PROXY_PORT=your-proxy-port
+      # - PROXY_USERNAME=your-proxy-username
+      # - PROXY_PASSWORD=your-proxy-password
+
+# 不再需要定义卷，因为直接使用本地目录 
