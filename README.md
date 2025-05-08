@@ -105,6 +105,3 @@ coolmonitor/
 
 本项目基于Apache License 2.0许可证开源 - 详情请查看 LICENSE 文件。
 
-## 🔗 链接
-
-* GitHub仓库: https://github.com/star7th/coolmonitor
