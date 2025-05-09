@@ -2,7 +2,6 @@
 
 酷监控是一个高颜值的监控工具，支持网站监控/接口监控/HTTPS证书监控等多种监控类型，帮助开发者及运维人员实时掌握网站/接口运行状态。本项目支持Docker一键快速部署，拥有美观现代的界面设计。
 
-
 ## 🚀 功能特点
 
 * **多种监控类型**：支持HTTP/HTTPS网站、API接口、HTTPS证书过期、TCP端口、MySQL/Redis数据库等多种监控
@@ -12,18 +11,22 @@
 * **数据可视化**：直观的状态图表和分析功能，快速了解系统运行状况
 * **持久化存储**：使用SQLite数据库，轻量级部署无需额外依赖
 
-## 📸 截图预览
+### 📸 截图预览
 
 ### 控制台主界面
+
 ![控制台主界面](./screenshot/dashboard-main.png)
 
 ### 单个监控项详情页
+
 ![监控详情页](./screenshot/dashboard-one.png)
 
 ### 添加监控
+
 ![添加监控](./screenshot/add.png)
 
 ### 通知设置
+
 ![通知设置](./screenshot/notification.png)
 
 ## 🔧 监控类型
@@ -38,7 +41,7 @@
 
 ## 🛠️ 技术栈
 
-* **前端框架**：Next.js 
+* **前端框架**：Next.js
 * **后端**：Next.js API Routes
 * **数据库**：SQLite (通过Prisma ORM)
 * **UI库**：TailwindCSS
@@ -60,10 +63,10 @@ docker run -d --name coolmonitor --restart always -p 3333:3333 -v ~/coolmonitor_
 docker run -d --name coolmonitor --restart always -p 3333:3333 -v ~/coolmonitor_data:/app/data star7th/coolmonitor:arm-latest
 ```
 
-
 ### 初始化说明
 
 首次启动时，系统会自动：
+
 1. 检查数据库是否存在
    - 如果存在预置的数据库，则直接使用
    - 如果不存在，则自动初始化数据库结构
